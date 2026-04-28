@@ -65,7 +65,10 @@ class NumberGuesser:
             print('Enter a valid int')
             guess = input('Take a guess of what number I am thinking of... : ')
             guess = self.validateInt(guess)
-
+        
+        self.guesses.append(guess)
+        
+        print(f'Your guesses are: {self.guesses}')
         self.attempts += 1
 
         if self.level == 'Easy':
