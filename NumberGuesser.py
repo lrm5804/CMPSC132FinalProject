@@ -18,8 +18,9 @@ class NumberGuesser:
         print('WELCOME TO GUESS THE NUMBER!\n')
 
         answer1 = input("Do you want to hear the directions? Type Y or N: ").lower()
+
         
-        if answer1 == 'n':
+        if answer1 == 'y':
             print("\nHere are the directions:")
             print("I will think of a number in a given range. Your job is to guess the number. I'll give you feedback, and you can keep guessing!")
         else:
@@ -27,7 +28,11 @@ class NumberGuesser:
 
         print(self.breakline)
         print('First, pick a level.')
+
+
         answer2 = input("Type E, M, or H for Easy, Medium, or Hard: ").lower()
+        while not isinstance(answer2, str):
+            answer2 = input("Type E, M, or H for Easy, Medium, or Hard: ").lower()
 
         if answer2 == 'e':
             self.level = 'Easy'
@@ -46,7 +51,8 @@ class NumberGuesser:
             self.play()
 
     def play(self):
-        guess = int(input('Take a guess of what number I am thinking of... : '))
+
+        guess = self.validateInt(int(input('Take a guess of what number I am thinking of... : ')))
         self.attempts += 1
 
         if self.level == 'Easy':
@@ -93,7 +99,6 @@ class NumberGuesser:
         self.lose()
 
 
-
     def win(self):
         print(f'CONGRATULATIONS! YOU WON! THE NUMBER WAS {self.number} :) ')
         print(self.breakline)
@@ -116,5 +121,17 @@ class NumberGuesser:
         else:
             print('GAME OVER')
 
-        
+    def validateString(self, txt):
+        if isinstance(txt, str):
+            return True
+        else:
+            return False    
+
+    def validateInt(self, num):
+        try:
+            return int(num)
+        except:
+            print("Please enter a number")
+            self.play()
+
 
