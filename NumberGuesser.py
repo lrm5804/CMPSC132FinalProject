@@ -134,4 +134,4 @@ class NumberGuesser:
             print("Please enter a number")
             self.play()
 
-
+print('TEST')
