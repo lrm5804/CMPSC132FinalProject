@@ -69,7 +69,7 @@ class NumberGuesser:
             guess = input('Take a guess of what number I am thinking of... : ')
             guess = self.validateInt(guess)
             while not isinstance(guess, int) or isinstance(guess, bool):
-                print('Enter a valid int')
+                print('Enter a valid integer')
                 guess = input('Take a guess of what number I am thinking of... : ')
                 guess = self.validateInt(guess)
             
@@ -160,7 +160,8 @@ class NumberGuesser:
             self.guesses = []
             self.begin()
         else:
-            print('GAME OVER')
+            self.correct = True # HEREREHER
+            print('\nGAME OVER')
 
     def lose(self):
         # prints loss message
@@ -183,6 +184,7 @@ class NumberGuesser:
             self.guesses = []
             self.begin()
         else:
+            self.correct = True
             print('\nGAME OVER!!')
 
     def validateYN(self, txt):
