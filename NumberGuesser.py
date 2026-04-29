@@ -13,6 +13,7 @@ class NumberGuesser:
         self.attempts = 0
         self.wins = 0
         self.guesses = []
+        self.correct = False
         self.breakline = '\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n'
 
     def begin(self):
@@ -28,7 +29,7 @@ class NumberGuesser:
 
         if answer1 == 'y':
             print("\nHere are the directions:")
-            print("I will think of a number in a given range. Your job is to guess the number. I'll give you feedback, and you can keep guessing!")
+            print("I will think of a number between 0 and 100. Your job is to guess the number. I'll give you feedback, and you can keep guessing!")
         else:
             print('\nOk, we can skip the directions!')
 
@@ -55,60 +56,68 @@ class NumberGuesser:
         print(self.breakline)
 
         self.play()
-
     def play(self):
-
-        guess = input('Take a guess of what number I am thinking of... : ')
-        guess = self.validateInt(guess)
-
-        while not isinstance(guess, int) or isinstance(guess, bool):
-            print('Enter a valid int')
+        while not self.correct:
             guess = input('Take a guess of what number I am thinking of... : ')
             guess = self.validateInt(guess)
-        
-        self.guesses.append(guess)
-        
-        print(f'Your guesses are: {self.guesses}')
-        self.attempts += 1
 
-        if self.level == 'Easy':
-            print(f'You get 20 guesses in total, so you have {20 - self.attempts} left.')
-            if guess == self.number:
-                self.win()
-            else:
-                while guess != self.number and self.attempts < 20:
-                    if guess < self.number:
-                        print('Guess too low!')
-                    else:
-                        print('Guess too high!')
-                    print(self.breakline)
-                    self.play()
+            while not isinstance(guess, int) or isinstance(guess, bool):
+                print('Enter a valid int')
+                guess = input('Take a guess of what number I am thinking of... : ')
+                guess = self.validateInt(guess)
+            
+            self.guesses.append(guess)
+            
+            print(f'Your guesses are: {self.guesses}')
+            self.attempts += 1
 
-        elif self.level == 'Medium':
-            print(f'You get 10 guesses in total, so you have {10 - self.attempts} left.')
-            if guess == self.number:
-                self.win()
-            else:
-                while guess != self.number and self.attempts < 10:
-                    if guess < self.number:
-                        print('Guess too low!')
-                    else:
-                        print('Guess too high!')
-                    print(self.breakline)
-                    self.play()
+            if self.level == 'Easy':
+                print(f'You get 20 guesses in total, so you have {20 - self.attempts} left.')
+                if guess == self.number:
+                    self.correct = True
+                    self.win()
+                elif 20 - self.attempts == 0:
+                    self.lose()
+                else:
+                    while guess != self.number and self.attempts < 20:
+                        if guess < self.number:
+                            print('Guess too low!')
+                        else:
+                            print('Guess too high!')
+                        print(self.breakline)
+                        self.play()
 
-        elif self.level == 'Hard':
-            print(f'You get 5 guesses in total, so you have {5 - self.attempts} left.')
-            if guess == self.number:
-                self.win()
-            else:
-                while guess != self.number and self.attempts < 5:
-                    if guess < self.number:
-                        print('Guess too low!')
-                    else:
-                        print('Guess too high!')
-                    print(self.breakline)
-                    self.play()
+            elif self.level == 'Medium':
+                print(f'You get 10 guesses in total, so you have {10 - self.attempts} left.')
+                if guess == self.number:
+                    self.correct = True
+                    self.win()
+                elif 10 - self.attempts == 0:
+                    self.lose()
+                else:
+                    while guess != self.number and self.attempts < 10:
+                        if guess < self.number:
+                            print('Guess too low!')
+                        else:
+                            print('Guess too high!')
+                        print(self.breakline)
+                        self.play()
+
+            elif self.level == 'Hard':
+                print(f'You get 5 guesses in total, so you have {5 - self.attempts} left.')
+                if guess == self.number:
+                    self.correct = True
+                    self.win()
+                elif 5 - self.attempts == 0:
+                    self.lose()
+                else:
+                    while guess != self.number and self.attempts < 5:
+                        if guess < self.number:
+                            print('Guess too low!')
+                        else:
+                            print('Guess too high!')
+                        print(self.breakline)
+                        self.play()
 
         print(self.breakline)
 
@@ -121,7 +130,6 @@ class NumberGuesser:
         print(f'You have won {self.wins} times this game!')
         print(self.breakline)
 
-
         play_again = input('Would you like to play again? To continue your winning streak, type Y or N: ')
         play_again = self.validateYN(play_again)
         while not isinstance(play_again, str) or isinstance(play_again, bool):
@@ -132,6 +140,8 @@ class NumberGuesser:
         if play_again == 'y':
             self.attempts = 0
             self.number = random.randint(0, 100)
+            self.correct = False
+            self.guesses = []
             self.begin()
         else:
             print('GAME OVER')
@@ -150,6 +160,8 @@ class NumberGuesser:
         if play_again == 'y':
             self.attempts = 0
             self.number = random.randint(0, 100)
+            self.correct = False
+            self.guesses = []
             self.begin()
         else:
             print('\nGAME OVER!!')
