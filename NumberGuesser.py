@@ -20,11 +20,11 @@ class NumberGuesser:
 
         print('WELCOME TO GUESS THE NUMBER!\n')
 
-        answer1 = input("Do you want to hear the directions? Type Y or N: ")
+        answer1 = input("Do you want to hear the directions? Type Y for yes or N for no: ")
         answer1 = self.validateYN(answer1)
         while not isinstance(answer1, str) or isinstance(answer1, bool):
                 print('Enter a valid string.')
-                answer1 = input("Do you want to hear the directions? Type Y or N: ")
+                answer1 = input("Do you want to hear the directions? Type Y for yes or N for no: ")
                 answer1 = self.validateYN(answer1)
 
         if answer1 == 'y':
@@ -130,11 +130,11 @@ class NumberGuesser:
         print(f'You have won {self.wins} times this game!')
         print(self.breakline)
 
-        play_again = input('Would you like to play again? To continue your winning streak, type Y or N: ')
+        play_again = input('Would you like to play again? To continue your winning streak, type Y for yes or N for no: ')
         play_again = self.validateYN(play_again)
         while not isinstance(play_again, str) or isinstance(play_again, bool):
             print("Type Y to play again")
-            play_again = input('Would you like to play again? To continue your winning streak, type Y or N: ')
+            play_again = input('Would you like to play again? To continue your winning streak, type Y for yes or N for no: ')
             play_again = self.validateYN(play_again)
 
         if play_again == 'y':
@@ -154,7 +154,7 @@ class NumberGuesser:
 
         while not isinstance(play_again, str) or isinstance(play_again, bool):
             print("Type Y to play again")
-            play_again = input('Would you like to play again? To continue your winning streak, type Y or N: ')
+            play_again = input('Would you like to play again? To continue your winning streak, type Y for yes or N for noand: ')
             play_again = self.validateYN(play_again)
 
         if play_again == 'y':
